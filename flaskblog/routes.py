@@ -14,7 +14,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 def home():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page,
-                                                                  per_page=2)
+                                                                  per_page=3)
     return render_template('home.html', posts=posts)
 
 
@@ -161,5 +161,5 @@ def user_posts(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user)\
         .order_by(Post.date_posted.desc())\
-        .paginate(page=page, per_page=2)
+        .paginate(page=page, per_page=3)
     return render_template('user_posts.html', posts=posts, user=user)
